@@ -10,9 +10,9 @@
 
 x, y, z = 'Cluster1', 'Cluster2', 'Cluster3'
 
-# print(x)
-# print(y)
-# print(z)
+print(x)
+print(y)
+print(z)
 
 # import random 
 # x = random.randrange(0, 200)
