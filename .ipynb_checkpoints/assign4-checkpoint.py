@@ -39,9 +39,9 @@ def kMeansAlg():
     
     ''' (2) Partition the Data into 3 Clusters '''
     
-    for a in dataSet 
+#     for a in dataSet 
     
-        a = txt.rpartition('V400')  # Partition from 400th entry
-        print(a)
+#         a = txt.rpartition('V400')  # Partition from 400th entry
+#         print(a)
     
 kMeansAlg()
