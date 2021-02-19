@@ -7,6 +7,7 @@
 # ####################################
 
 import random 
+# import numpy as np
 import matplotlib.pyplot as plot
 
 # (I). Get Vectors in Data Set 
@@ -103,13 +104,19 @@ def plotK(dataSet, clusterCenters):
 ####################################
 
 # (IV). Compute the Distance b/w Centroids & Points
-def findDistance()
+def findDistance():
+    # sqrt of sum of squares 
+    from math import sqrt
+    nums = {int(sqrt((vectorsK)**2)) for vectorsK in range(200)}
+    print(nums)
+    
 
 
 ####################################
 
 # (V). Locate new Cluster Center / Centroid 
-def updateCenter()
+def updateCenter():
+    # compute AVG of clust & update 
     
 '''while (prev_val - current <=0)''' 
 # until unchanged 
