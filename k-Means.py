@@ -60,33 +60,29 @@ print(clusterCenters)
 # (II). Assign k Clusters 
 def kClusters(k, clusterCenters, vectorsK):
     
+    keys = list(vectorsK.keys())
+    
     ''' Initialize all 3 Clusters '''
     
     # Cluster 1 
-    x = range(200)
+    clust_k1 = random.randrange(0, len(vectorsK))
     clust1 = "CLUSTER ONE = {}"
-    print(clust1.format(x))
-    
-#     for x in range(200): 
-#         kMeans = clusterK
+    print(clust1.format(clust_k1))
+    clust1 = keys[0:clust_k1]
+
         
     # Cluster 2
-    y = range(201,400)
+    clust_k2 = random.randrange(clust_k1, len(vectorsK))
     clust2 = "CLUSTER TWO = {}"
-    print(clust2.format(y))
+    print(clust2.format(clust_k2))
+    clust2 = keys[clust_k1:clust_k2]
     
+
     # Cluster 3
-    z = range(401,600)
+    clust_k3 = random.randrange(clust_k2, len(vectorsK))
     clust3 = "CLUTSTER THREE = {}"
-    print(clust3.format(z))
-    
-    
-    ''' Partition the Data into 3 Clusters '''
-    
-#     for a in dataSet 
-    
-#         a = txt.rpartition('V400')  # Partition from 400th entry
-#         print(a)
+    print(clust3.format(clust_k3))
+    clust3 = keys[clust_k2:len(keys)]
     
     return kClusters(k, clusterCenters, vectorsK)
     
@@ -104,12 +100,23 @@ def plotK(dataSet, clusterCenters):
     plot.ylabel('Value')
     plot.show()
 
+####################################
 
+# (IV). Compute the Distance b/w Centroids & Points
+def findDistance()
+
+
+####################################
+
+# (V). Locate new Cluster Center / Centroid 
+def updateCenter()
+    
 '''while (prev_val - current <=0)''' 
 # until unchanged 
 
 # --> Prev Value of Jclust <= 1
 # Summation for each cluster within value 
+
 
 ####################################
 
