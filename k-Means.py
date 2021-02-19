@@ -19,42 +19,66 @@ def GetVectors(data):
     vectorsK = {} 
     clusterCenters = {}
     
+    counter = 1
+    
     with open(data, 'r') as d: 
     
         contents = d.read().split('\n')
         
-        # Define Vectors 
-        contents = contents[1:len(contents)] 
-        
-        for vect_ID, vect_nums in enumerate(contents):
-        
-            if vect_nums == '':
-                break
-        
-            curr_vect = vect_nums.split(',')
+        for columns in contents:
             
-            vectorsK[curr_vect[0]] = [float(val) for val in curr_vect[1:len(curr_vect)]]
+             # Vectors 
+            if counter <= 600:
             
-            '''for val in curr_vect[1:len(curr_vect)]:
+                vect = columns.split(',')
+
+                vectorsK[vect[0]] = [vect[1],vect[2],vect[3]]  #Each val(1-3) to Key 
+            
+            # Cluster Centers 
+            if counter > 602:
                 
-                val = float(val)'''
+                clusters = columns.split(',')
                 
-        # Define Cluster Centers 
-        contents = contents[vect_ID + 2, len(contents)]
+                clusterCenters[clusters[0]] = [clusters[1], clusters[2], clusters[3]]
+                
+        counter = counter + 1
+
+    print(vectorsK)
         
-        for vect_num in contents: 
+    print(clusterCenters)
+        
+#         # Define Vectors 
+#         contents = contents[1:len(contents)] 
+        
+#         for vect_ID, vect_nums in enumerate(contents):
+        
+#             if vect_nums == '':
+#                 break
+        
+#             curr_vect = vect_nums.split(',')
             
-            curr_vect = vect_num.split(',')
+# #             vectorsK[curr_vect[0]] = [float(val) for val in curr_vect[1:len(curr_vect)]]
             
-            clusterCenters[curr_vect[0]] = [float(val) for val in curr_vect[1:len(curr_vect)]]
+#             for val in curr_vect[1:len(curr_vect)]:
+                
+#                 val = float(val)
+                
+#         # Define Cluster Centers 
+#         contents = contents[vect_ID + 2, len(contents)]
+        
+#         for vect_num in contents: 
             
-        #print(clusterCenters)
+#             curr_vect = vect_num.split(',')
+            
+#             clusterCenters[curr_vect[0]] = [float(val) for val in curr_vect[1:len(curr_vect)]]
+            
+#         #print(clusterCenters)
         
     return vectorsK, clusterCenters
 
 clusterCenters, vectorsK = GetVectors('data.csv')
 
-print(clusterCenters)
+# print(clusterCenters)
 
 ####################################
 
@@ -118,7 +142,7 @@ def findDistance():
 def updateCenter():
     # compute AVG of clust & update 
     
-'''while (prev_val - current <=0)''' 
+    '''while (prev_val - current <=0)''' 
 # until unchanged 
 
 # --> Prev Value of Jclust <= 1
