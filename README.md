@@ -16,11 +16,11 @@
 ---
 
 ###### k - means Algorithm: 
-![k-means-2](k-Means.png)
+![k-means-2](images/k-Means.png)
 
 ---
 
 ###### k - means Centroids: 
-![k-means-3](k-Means.png)
+![k-means-3](images/centroids.png)
 
 ---
