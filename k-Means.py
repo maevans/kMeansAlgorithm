@@ -1,190 +1,122 @@
 # ####################################
 #
 #  Josie Evans 
-# 
 #  Assignment #4: k-means Algorithm
 #
 # ####################################
 
-import random 
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
-import matplotlib.pyplot as plot
+import random
 
 # (I). Get Vectors in Data Set 
 def GetVectors(path):
     
-    vectorsK = {} 
-    clusterCenters = {}
+    vectors = {}
+    cluster_centers = {}
     
     with open(path, 'r') as f:
-        
         contents = f.read().split('\n')
-        
-        # Split Contents of Data Set 
         contents = [row for row in contents if not row.split(',')[0].strip() in ['Vectors', 'Cluster Centers', '']]
-        
         for line in contents:    
-            
             curr_line = line.split(',')
-            
-            # Vectors 
             if curr_line[0].startswith('V'):
-                
-                vectorsK[curr_line[0]] = [float(val) for val in curr_line[1:len(curr_line)]]
-             
-            # Cluster Centers
+                vectors[curr_line[0]] = np.array([float(val) for val in curr_line[1:len(curr_line)]])
             else:
-                clusterCenters[curr_line[0]] = [float(val) for val in curr_line[1:len(curr_line)]]
-                
-    return clusterCenters, vectorsK
-    
-#     counter = 1
-    
-#     with open(data, 'r') as d: 
-    
-#         contents = d.read().split('\n')
-        
-#         for columns in contents:
-            
-#              # Vectors 
-#             if counter <= 601:
-            
-#                 vect = columns.split(',')
-
-#                 vectorsK[vect[0]] = [vect[1],vect[2],vect[3]]  #Each val(1-3) to Key 
-            
-#             # Cluster Centers 
-#             elif counter > 602:
-                
-#                 clusters = columns.split(',')
-                
-#                 clusterCenters[clusters[0]] = [clusters[1], clusters[2], clusters[3]]
-                
-#             elif counter > 606: 
-#                 break
-                
-#         counter = counter + 1
-
-#     print(vectorsK)
-        
-#     print(clusterCenters)
-        
-#         # Define Vectors 
-#         contents = contents[1:len(contents)] 
-        
-#         for vect_ID, vect_nums in enumerate(contents):
-        
-#             if vect_nums == '':
-#                 break
-        
-#             curr_vect = vect_nums.split(',')
-            
-# #             vectorsK[curr_vect[0]] = [float(val) for val in curr_vect[1:len(curr_vect)]]
-            
-#             for val in curr_vect[1:len(curr_vect)]:
-                
-#                 val = float(val)
-                
-#         # Define Cluster Centers 
-#         contents = contents[vect_ID + 2, len(contents)]
-        
-#         for vect_num in contents: 
-            
-#             curr_vect = vect_num.split(',')
-            
-#             clusterCenters[curr_vect[0]] = [float(val) for val in curr_vect[1:len(curr_vect)]]
-            
-#         #print(clusterCenters)
-        
-    return vectorsK, clusterCenters
-
-clusterCenters, vectorsK = GetVectors('data.csv')
-
-# print(clusterCenters)
+                cluster_centers[curr_line[0]] = np.array([float(val) for val in curr_line[1:len(curr_line)]])
+    return cluster_centers, vectors
 
 ####################################
 
-# (II). Assign k Clusters 
-def kClusters(k, clusterCenters, vectorsK):
-    
-    keys = list(vectorsK.keys())
-    
-    ''' Initialize all 3 Clusters '''
-    
-    
-# Randomly sample so each cluster does not have repeating values 
-
-# Set / Set difference 
-
-    # Cluster 1 
-    clust_k1 = random.randrange(0, len(vectorsK))
-    clust1 = "CLUSTER ONE = {}"
-    print(clust1.format(clust_k1))
-    clust1 = keys[0:clust_k1]
-
-        
-    # Cluster 2
-    clust_k2 = random.randrange(clust_k1, len(vectorsK))
-    clust2 = "CLUSTER TWO = {}"
-    print(clust2.format(clust_k2))
-    clust2 = keys[clust_k1:clust_k2]
-    
-
-    # Cluster 3
-    clust_k3 = random.randrange(clust_k2, len(vectorsK))
-    clust3 = "CLUTSTER THREE = {}"
-    print(clust3.format(clust_k3))
-    clust3 = keys[clust_k2:len(keys)]
-    
-    return kClusters(k, clusterCenters, vectorsK)
-    
-kClusters()
-
-####################################
-
-# (III). Plot Initial k Clusters 
+# (II). Plot 3 Clusters 
 '''INITIAL clusterCenters in BLUE'''
-def plotK(dataSet, clusterCenters): 
-    
-    plot.plot(range(1,600), dataSet)
-    plot.title('k-Means Algorithm')
-    plot.xlabel('Clusters')
-    plot.ylabel('Value')
-    plot.zlabel('Height')
-    plot.show()
-
-####################################
-
-# (IV). Compute the Distance b/w Centroids & Points
-def findDistance():
-    # sqrt of sum of squares 
-    from math import sqrt
-    nums = {int(sqrt((vectorsK)**2)) for vectorsK in range(200)}
-    print(nums)
-    
-
-
-####################################
-
-# (V). Locate new Cluster Center / Centroid 
-def updateCenter():
-    # compute AVG of clust & update 
-    
-    '''while (prev_val - current <=0)''' 
-# until unchanged 
-
-# --> Prev Value of Jclust <= 1
-# Summation for each cluster within value 
-
-
-####################################
-
-# (). Plot Final j Clusters 
 '''FINAL clusterCenters in GREEN'''
-def plotJ(dataSet, clusterCenters): 
+def plot_vectors(cluster_centers, vectors, num_vectors):
     
-    plot.plot(range(1,600), dataSet)
-    plot.title('k-Means Algorithm')
-    plot.xlabel('Clusters')
-    plot.ylabel('Value')
-    plot.show()
+    fig = plt.figure()
+    ax = Axes3D(fig)
+    
+    # Plot vectors:
+    vector_names = list(vectors.keys())
+    rand_indices = random.sample(range(0, len(vectors)), num_vectors)
+    selected_vectors = [vector_names[idx] for idx in rand_indices]
+    target_vectors = tuple([vectors[nm] for nm in selected_vectors])
+    target_vectors = np.column_stack(target_vectors)
+    
+    # Set coordinate limits:
+    ax.set_xlim([-20,20])
+    ax.set_ylim([-20,20])
+    ax.set_zlim([-20,20])
+    ax.scatter(target_vectors[:, 0], target_vectors[:, 1], target_vectors[:, 2], color = 'black')
+    
+    # Plot clusters:
+    clusters = np.column_stack([cluster_centers[nm] for nm in cluster_centers])
+    ax.scatter(clusters[:,0], clusters[:,1], clusters[:,2], color = 'blue')
+    plt.show()
+
+def plot_clusters(clusters_initial, clusters_final, vectors = None):
+    fig = plt.figure()
+    ax = Axes3D(fig)
+    clusters_initial = np.column_stack([clusters_initial[nm] for nm in clusters_initial])
+    clusters_final = np.column_stack([clusters_final[nm] for nm in clusters_final])
+    ax.scatter(*clusters_initial, color = 'blue')
+    ax.scatter(*clusters_final, color = 'green')
+    if not vectors is None:
+        vectors_arr = np.column_stack([vectors[nm] for nm in vectors])
+        ax.scatter(*vectors_arr, color = 'red')
+    plt.show()
+    
+
+def kMeansAlg(cluster_centers, vectors, abs_dist, abs_step_diff, max_steps):
+
+    # Run K-Means Algorithm:
+    avg_dist = 1.7976931348623157e+308
+    avg_step_diff = 1.7976931348623157e+308
+    step_num = 0
+    
+    while (avg_dist > abs_dist or avg_step_diff > abs_step_diff) and step_num <= max_steps:
+        
+        prev_avg_dist = avg_dist
+        avg_dist = 0
+        
+        cluster_assigns = { name : [] for name in cluster_centers }
+        
+        for vector_name in vectors:
+            
+            # Assign vector to closest cluster_center (centroid):
+            dists = { name : np.linalg.norm(vectors[vector_name] - cluster_centers[name]) for name in cluster_centers }
+            
+            # Assign vector to closest cluster:
+            min_dist = min(dists.values())
+            avg_dist += abs(min_dist) / len(vectors)
+            for name in dists:
+                if dists[name] == min_dist:
+                    cluster_assigns[name].append(vector_name)
+                    break
+                    
+        # Update cluster centers to be average of all vectors:
+        for name in cluster_assigns:
+            vectors_arr = np.array([vectors[vec] for vec in cluster_assigns[name]])
+            dims = range(0, vectors_arr.shape[1])
+            cluster_centers[name] = np.array([np.mean(vectors_arr[dim]) for dim in dims])
+            
+        # Compute difference in iteration distance:
+        if step_num != 0:
+            avg_step_diff = abs(avg_dist - prev_avg_dist)
+        else:
+            avg_step_diff = avg_dist
+        step_num += 1
+
+    return cluster_assigns
+
+###############################
+# Main section:
+###############################
+cluster_centers, vectors = GetVectors('data.csv')
+clusters_initial = cluster_centers.copy()
+#plot_vectors(cluster_centers, vectors, 10)
+kMeansAlg(cluster_centers, vectors, .01, .01, 500)
+clusters_final = cluster_centers.copy()
+plot_clusters(clusters_initial, clusters_final, vectors)
+###############################
