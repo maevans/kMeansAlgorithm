@@ -5,10 +5,10 @@
 #
 # ####################################
 
+import random
+import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-import numpy as np
-import random
 
 # (I). Get Vectors in Data Set 
 def GetVectors(path):
@@ -29,13 +29,13 @@ def GetVectors(path):
 
 ####################################
 
-# (II). Plot 3 Clusters 
-'''INITIAL clusterCenters in BLUE'''
-'''FINAL clusterCenters in GREEN'''
+# (II). Plot Vectors  
 def plot_vectors(cluster_centers, vectors, num_vectors):
     
     fig = plt.figure()
     ax = Axes3D(fig)
+    
+    fig.suptitle('k-Means Algorithm')
     
     # Plot vectors:
     vector_names = list(vectors.keys())
@@ -55,9 +55,15 @@ def plot_vectors(cluster_centers, vectors, num_vectors):
     ax.scatter(clusters[:,0], clusters[:,1], clusters[:,2], color = 'blue')
     plt.show()
 
+####################################
+
+# (III). Plot 3 Clusters  
+'''INITIAL clusterCenters in BLUE'''
+'''FINAL clusterCenters in GREEN'''    
 def plot_clusters(clusters_initial, clusters_final, vectors = None):
     fig = plt.figure()
     ax = Axes3D(fig)
+    fig.suptitle('k-Means Centroids')
     clusters_initial = np.column_stack([clusters_initial[nm] for nm in clusters_initial])
     clusters_final = np.column_stack([clusters_final[nm] for nm in clusters_final])
     ax.scatter(*clusters_initial, color = 'blue')
@@ -67,7 +73,9 @@ def plot_clusters(clusters_initial, clusters_final, vectors = None):
         ax.scatter(*vectors_arr, color = 'red')
     plt.show()
     
+####################################
 
+# (IV). k-Means Implementation 
 def kMeansAlg(cluster_centers, vectors, abs_dist, abs_step_diff, max_steps):
 
     # Run K-Means Algorithm:
@@ -115,7 +123,7 @@ def kMeansAlg(cluster_centers, vectors, abs_dist, abs_step_diff, max_steps):
 ###############################
 cluster_centers, vectors = GetVectors('data.csv')
 clusters_initial = cluster_centers.copy()
-#plot_vectors(cluster_centers, vectors, 10)
+# plot_vectors(cluster_centers, vectors, 10)
 kMeansAlg(cluster_centers, vectors, .01, .01, 500)
 clusters_final = cluster_centers.copy()
 plot_clusters(clusters_initial, clusters_final, vectors)
