@@ -7,45 +7,67 @@
 # ####################################
 
 import random 
-# import numpy as np
+import numpy as np
 import matplotlib.pyplot as plot
 
 # (I). Get Vectors in Data Set 
-def GetVectors(data):
-    
-    # Import & Read Data Set 
-    #dataSet = r'data.csv'
+def GetVectors(path):
     
     vectorsK = {} 
     clusterCenters = {}
     
-    counter = 1
-    
-    with open(data, 'r') as d: 
-    
-        contents = d.read().split('\n')
+    with open(path, 'r') as f:
         
-        for columns in contents:
-            
-             # Vectors 
-            if counter <= 600:
-            
-                vect = columns.split(',')
-
-                vectorsK[vect[0]] = [vect[1],vect[2],vect[3]]  #Each val(1-3) to Key 
-            
-            # Cluster Centers 
-            if counter > 602:
-                
-                clusters = columns.split(',')
-                
-                clusterCenters[clusters[0]] = [clusters[1], clusters[2], clusters[3]]
-                
-        counter = counter + 1
-
-    print(vectorsK)
+        contents = f.read().split('\n')
         
-    print(clusterCenters)
+        # Split Contents of Data Set 
+        contents = [row for row in contents if not row.split(',')[0].strip() in ['Vectors', 'Cluster Centers', '']]
+        
+        for line in contents:    
+            
+            curr_line = line.split(',')
+            
+            # Vectors 
+            if curr_line[0].startswith('V'):
+                
+                vectorsK[curr_line[0]] = [float(val) for val in curr_line[1:len(curr_line)]]
+             
+            # Cluster Centers
+            else:
+                clusterCenters[curr_line[0]] = [float(val) for val in curr_line[1:len(curr_line)]]
+                
+    return clusterCenters, vectorsK
+    
+#     counter = 1
+    
+#     with open(data, 'r') as d: 
+    
+#         contents = d.read().split('\n')
+        
+#         for columns in contents:
+            
+#              # Vectors 
+#             if counter <= 601:
+            
+#                 vect = columns.split(',')
+
+#                 vectorsK[vect[0]] = [vect[1],vect[2],vect[3]]  #Each val(1-3) to Key 
+            
+#             # Cluster Centers 
+#             elif counter > 602:
+                
+#                 clusters = columns.split(',')
+                
+#                 clusterCenters[clusters[0]] = [clusters[1], clusters[2], clusters[3]]
+                
+#             elif counter > 606: 
+#                 break
+                
+#         counter = counter + 1
+
+#     print(vectorsK)
+        
+#     print(clusterCenters)
         
 #         # Define Vectors 
 #         contents = contents[1:len(contents)] 
@@ -89,6 +111,11 @@ def kClusters(k, clusterCenters, vectorsK):
     
     ''' Initialize all 3 Clusters '''
     
+    
+# Randomly sample so each cluster does not have repeating values 
+
+# Set / Set difference 
+
     # Cluster 1 
     clust_k1 = random.randrange(0, len(vectorsK))
     clust1 = "CLUSTER ONE = {}"
@@ -123,6 +150,7 @@ def plotK(dataSet, clusterCenters):
     plot.title('k-Means Algorithm')
     plot.xlabel('Clusters')
     plot.ylabel('Value')
+    plot.zlabel('Height')
     plot.show()
 
 ####################################
