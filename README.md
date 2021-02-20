@@ -13,7 +13,14 @@
 
 ![k-means-1](https://miro.medium.com/max/2864/1*D8n2_K5MsK7tlNp8DPgJzQ.png)
 
+---
+
 ###### k - means Algorithm: 
 ![k-means-2](k-Means.png)
+
+---
+
+###### k - means Centroids: 
+![k-means-3](k-Means.png)
 
 ---
