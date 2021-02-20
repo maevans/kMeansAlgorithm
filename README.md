@@ -14,6 +14,6 @@
 ![k-means-1](https://miro.medium.com/max/2864/1*D8n2_K5MsK7tlNp8DPgJzQ.png)
 
 ###### k - means Algorithm: 
-![k-means-2](https://miro.medium.com/max/2312/1*w_cS-aizydvRkD-cTtQLUA.png)
+![k-means-2](k-Means.png)
 
 ---
